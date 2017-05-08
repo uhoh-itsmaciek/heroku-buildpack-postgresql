@@ -67,6 +67,7 @@ password="p$(</dev/urandom tr -dc 'a-z0-9' | head -c 64)"
 export PGDATA=$BUILD_DIR/vendor/postgresql/data
 initdb | indent
 echo "fsync = off" >> $PGDATA/postgresql.conf
+echo "full_page_writes = off" >> $PGDATA/postgresql.conf
 
 pg_ctl -l .pg.log -w start | indent
 psql -c "CREATE USER ${user} WITH SUPERUSER ENCRYPTED PASSWORD '${password}'" postgres | indent
